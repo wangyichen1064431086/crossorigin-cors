@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+</head>
+<body>
+<div>我是a</div>
+<button type="button" id="sendBtn">点我发送Ajax请求</button>
+<script>
+  const sendBtn = document.getElementById('sendBtn');
+  sendBtn.addEventListener('click', function() {
+    // By XMLHttpRequest:
+    /*
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+          console.log(xhr.responseText);
+        }
+      }
+    }
+    xhr.open('get', '{{reqDest}}', true);
+    xhr.send(null);
+    */
+
+    // By Fetch:
+    fetch('{{reqDest}}', {
+      mode: 'cors'
+    }).then( res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    }).then( resData => {
+      console.log(resData);
+    }).catch(err => {
+      console.Error(err.message);
+    })
+  });
+  
+</script>
+</body>
+</html>
